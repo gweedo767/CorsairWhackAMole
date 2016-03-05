@@ -15,7 +15,7 @@ namespace Corsair_Whack_A_Mole
 {
     class LightsOutGame : Game
     {
-        private bool LoseScreen;
+        private bool WinScreen;
 
         public Random Random;
 
@@ -64,7 +64,7 @@ namespace Corsair_Whack_A_Mole
             MolesKeyGroup = new ListKeyGroup(keyboard);
             MolesKeyGroup.Brush = new SolidColorBrush(Color.Yellow);
 
-            LoseScreen = false;
+            WinScreen = false;
 
         }
 
@@ -101,13 +101,13 @@ namespace Corsair_Whack_A_Mole
             {
 
                 // set default color to deep sky blue
-                if (!LoseScreen)
+                if (!WinScreen)
                 {
                     keyboard.Brush = new SolidColorBrush(Color.DeepSkyBlue);
                 }
                 else
                 {
-                    keyboard.Brush = new SolidColorBrush(Color.DarkRed);
+                    keyboard.Brush = new SolidColorBrush(Color.Gold);
 
                     base.UpdateKeyboard();
                     Wait(5000);
@@ -163,8 +163,8 @@ namespace Corsair_Whack_A_Mole
             if (e.KeyCode.Equals(Keys.OemPeriod)) KeyPressed = CorsairKeyboardKeyId.PeriodAndBiggerThan;
             if (e.KeyCode.Equals(Keys.OemQuestion)) KeyPressed = CorsairKeyboardKeyId.SlashAndQuestionMark;
 
-            int X = 0;
-            int Y = 0;
+            int X = -1;
+            int Y = -1;
             if (e.KeyCode.Equals(Keys.D1))
             {
                 X = 0;
@@ -365,30 +365,36 @@ namespace Corsair_Whack_A_Mole
                 X = 9;
                 Y = 3;
             }
-
-            //toggle key
-            ToggleKey(Y,X);
-            //up?
-            if(Y != 0)
+            else if(e.KeyCode.Equals(Keys.Escape))
             {
-                ToggleKey(Y-1, X);
-            }
-            //down?
-            if(Y != 3)
-            {
-                ToggleKey(Y+1, X);
-            }
-            //left?
-            if(X != 0)
-            {
-                ToggleKey(Y, X-1);
-            }
-            //right?
-            if(X != 9)
-            {
-                ToggleKey(Y, X+1);
+                WinScreen = true;
             }
 
+            if (X != -1 && Y != -1)
+            {
+                //toggle key
+                ToggleKey(Y, X);
+                //up?
+                if (Y != 0)
+                {
+                    ToggleKey(Y - 1, X);
+                }
+                //down?
+                if (Y != 3)
+                {
+                    ToggleKey(Y + 1, X);
+                }
+                //left?
+                if (X != 0)
+                {
+                    ToggleKey(Y, X - 1);
+                }
+                //right?
+                if (X != 9)
+                {
+                    ToggleKey(Y, X + 1);
+                }
+            }
         }
     }
 }

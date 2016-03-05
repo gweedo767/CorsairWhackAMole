@@ -43,8 +43,8 @@ namespace Corsair_Whack_A_Mole
                     //found a keyboard, let them play!
                     this.toggleButton.Enabled = true;
                     Console.WriteLine("Keyboard found: {0}", keyboard.DeviceInfo.Model);
-                    game.SetKeyboard(keyboard);
                     this.lblKeyboardType.Text = "Keyboard Type: " + keyboard.DeviceInfo.Model;
+                    game.SetKeyboard(keyboard);
                 }
             }
             catch (CUEException ex)
