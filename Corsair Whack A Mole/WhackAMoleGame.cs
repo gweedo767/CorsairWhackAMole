@@ -13,10 +13,10 @@ using System.Windows.Forms;
 
 namespace Corsair_Whack_A_Mole
 {
-    class WhackAMoleGame
+    class WhackAMoleGame : Game
     {
-        public bool running; // is the game running now?
-        private CorsairKeyboard keyboard;
+        
+        
         private int Health;
         private int Score;
         private List<Mole> Moles;
@@ -53,7 +53,7 @@ namespace Corsair_Whack_A_Mole
 
         public WhackAMoleGame()
         {
-            Console.WriteLine("Game setting up");
+            Console.WriteLine("Game setting up (whack a mole)");
             running = false;
             Random = new Random();
         }
@@ -95,27 +95,17 @@ namespace Corsair_Whack_A_Mole
 
         }
 
-        public void StartGame()
+        public override void StartGame()
         {
+            Console.WriteLine("whack a moles StartGame() called");
+            //call base StartGame()
+            base.StartGame();
             running = true;
             Initialize();
             GameLoop();
         }
 
-        public void StopGame()
-        {
-            running = false;
-        }
-
-        public bool GetRunningState()
-        {
-            return running;
-        }
-
-        public void SetKeyboard(CorsairKeyboard keyboard)
-        {
-            this.keyboard = keyboard;
-        }
+        
 
         private void GameLoop()
         {
@@ -176,20 +166,21 @@ namespace Corsair_Whack_A_Mole
                     }
                     Moles.RemoveAll(item => item.Remove = false);
                     DrawHealth();
-                    UpdateKeyboard();
+                    base.UpdateKeyboard();
                     Wait(5000);
 
                     Initialize();
                 }
 
                 DrawHealth();
-                UpdateKeyboard();
+                base.UpdateKeyboard();
                 Wait(100);
             }
         }
 
-        public void GetKeyPress(KeyEventArgs e)
+        public override void GetKeyPress(KeyEventArgs e)
         {
+            base.GetKeyPress(e);
             Console.WriteLine("you hit a key" + e.KeyCode + " " + e.KeyValue);
             CorsairKeyboardKeyId KeyPressed = CorsairKeyboardKeyId.D1;
 
@@ -271,11 +262,6 @@ namespace Corsair_Whack_A_Mole
             }
         }
 
-        private void UpdateKeyboard()
-        {
-            keyboard.Update();
-        }
-
         private void DrawHealth()
         {
             int index = 0;
@@ -301,10 +287,7 @@ namespace Corsair_Whack_A_Mole
         }
 
 
-        private static void Wait(int milliseconds)
-        {
-            Thread.Sleep(milliseconds);
-        }
+        
 
         public class Mole
         {

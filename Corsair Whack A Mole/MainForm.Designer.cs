@@ -31,21 +31,23 @@
             this.label1 = new System.Windows.Forms.Label();
             this.toggleButton = new System.Windows.Forms.Button();
             this.lblKeyboardType = new System.Windows.Forms.Label();
+            this.radioWhackAMole = new System.Windows.Forms.RadioButton();
+            this.radioLightsOut = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Whack A Mole";
+            this.label1.Text = "Keyboard Games";
             // 
             // toggleButton
             // 
             this.toggleButton.Enabled = false;
-            this.toggleButton.Location = new System.Drawing.Point(15, 64);
+            this.toggleButton.Location = new System.Drawing.Point(12, 144);
             this.toggleButton.Name = "toggleButton";
             this.toggleButton.Size = new System.Drawing.Size(75, 23);
             this.toggleButton.TabIndex = 2;
@@ -56,25 +58,50 @@
             // lblKeyboardType
             // 
             this.lblKeyboardType.AutoSize = true;
-            this.lblKeyboardType.Location = new System.Drawing.Point(12, 22);
+            this.lblKeyboardType.Location = new System.Drawing.Point(9, 41);
             this.lblKeyboardType.Name = "lblKeyboardType";
             this.lblKeyboardType.Size = new System.Drawing.Size(123, 13);
             this.lblKeyboardType.TabIndex = 3;
             this.lblKeyboardType.Text = "Keyboard Type: unkown";
+            // 
+            // radioWhackAMole
+            // 
+            this.radioWhackAMole.AutoSize = true;
+            this.radioWhackAMole.Checked = true;
+            this.radioWhackAMole.Location = new System.Drawing.Point(12, 68);
+            this.radioWhackAMole.Name = "radioWhackAMole";
+            this.radioWhackAMole.Size = new System.Drawing.Size(96, 17);
+            this.radioWhackAMole.TabIndex = 4;
+            this.radioWhackAMole.TabStop = true;
+            this.radioWhackAMole.Text = "Whack A Mole";
+            this.radioWhackAMole.UseVisualStyleBackColor = true;
+            this.radioWhackAMole.CheckedChanged += new System.EventHandler(this.gameSelect_Changed);
+            // 
+            // radioLightsOut
+            // 
+            this.radioLightsOut.AutoSize = true;
+            this.radioLightsOut.Location = new System.Drawing.Point(12, 91);
+            this.radioLightsOut.Name = "radioLightsOut";
+            this.radioLightsOut.Size = new System.Drawing.Size(73, 17);
+            this.radioLightsOut.TabIndex = 5;
+            this.radioLightsOut.Text = "Lights Out";
+            this.radioLightsOut.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(214, 179);
+            this.Controls.Add(this.radioLightsOut);
+            this.Controls.Add(this.radioWhackAMole);
             this.Controls.Add(this.lblKeyboardType);
             this.Controls.Add(this.toggleButton);
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
-            this.KeyDown += this.MainForm_KeyDown;
             this.Name = "MainForm";
             this.Text = "Whack A Mole";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,7 +112,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button toggleButton;
         private System.Windows.Forms.Label lblKeyboardType;
-
+        private System.Windows.Forms.RadioButton radioWhackAMole;
+        private System.Windows.Forms.RadioButton radioLightsOut;
     }
 }
 

@@ -24,14 +24,12 @@ namespace Corsair_Whack_A_Mole
     public partial class MainForm : Form
     {
         CorsairKeyboard keyboard;
-        WhackAMoleGame game;
+        Game game;
         Task GameTask;
 
         public MainForm()
         {
             InitializeComponent();
-
-            game = new WhackAMoleGame();
 
             try
             {
@@ -61,6 +59,9 @@ namespace Corsair_Whack_A_Mole
             {
                 Console.WriteLine("Exception! Message:" + ex.Message);
             }
+
+            game = new WhackAMoleGame();
+            game.SetKeyboard(keyboard);
         }
 
         private void toggleButton_Click(object sender, EventArgs e)
@@ -68,6 +69,10 @@ namespace Corsair_Whack_A_Mole
             if (!game.GetRunningState())
             {
                 this.toggleButton.Text = "Disable";
+
+                //don't let me people change games while running
+                radioLightsOut.Enabled = false;
+                radioWhackAMole.Enabled = false;
 
                 CueSDK.Reinitialize();
                 keyboard.Brush = new SolidColorBrush(Color.DeepSkyBlue);
@@ -85,10 +90,29 @@ namespace Corsair_Whack_A_Mole
                 this.toggleButton.Text = "Enable";
                 CueSDK.Reinitialize();
 
+                radioLightsOut.Enabled = true;
+                radioWhackAMole.Enabled = true;
+
                 game.StopGame();
             }
 
             Console.WriteLine("Playing set to: {0}", game.GetRunningState());
+        }
+
+        public void gameSelect_Changed(object sender, EventArgs e)
+        {
+            Console.WriteLine("game changed!");
+
+            if(this.radioWhackAMole.Checked)
+            {
+                game = new WhackAMoleGame();
+                game.SetKeyboard(keyboard);
+            }
+            else if(this.radioLightsOut.Checked)
+            {
+                game = new LightsOutGame();
+                game.SetKeyboard(keyboard);
+            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

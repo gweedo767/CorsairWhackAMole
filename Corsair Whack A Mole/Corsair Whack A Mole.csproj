@@ -76,6 +76,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Game.cs" />
+    <Compile Include="LightsOutGame.cs" />
     <Compile Include="WhackAMoleGame.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
