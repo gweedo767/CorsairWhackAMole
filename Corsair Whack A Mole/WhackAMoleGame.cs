@@ -31,6 +31,7 @@ namespace Corsair_Whack_A_Mole
         ListKeyGroup GameMapKeyGroup;
         ListKeyGroup MolesKeyGroup;
         ListKeyGroup ScoreKeyGroup;
+        ListKeyGroup SingleScoreKeyGroup; // requires numberpad
 
         public static CorsairKeyboardKeyId[] HealthMap = new CorsairKeyboardKeyId[10] {
             CorsairKeyboardKeyId.D1,
@@ -60,6 +61,10 @@ namespace Corsair_Whack_A_Mole
 
         public void Initialize()
         {
+            //clear the board
+            keyboard.Brush = new SolidColorBrush(Color.DeepSkyBlue);
+            keyboard.Update();
+
             ActiveHealthKeyGroup = new ListKeyGroup(keyboard);
             ActiveHealthKeyGroup.Brush = new SolidColorBrush(Color.Red);
 
@@ -71,6 +76,9 @@ namespace Corsair_Whack_A_Mole
 
             ScoreKeyGroup = new ListKeyGroup(keyboard);
             ScoreKeyGroup.Brush = new SolidColorBrush(Color.Purple);
+
+            SingleScoreKeyGroup = new ListKeyGroup(keyboard);
+            SingleScoreKeyGroup.Brush = new SolidColorBrush(Color.Purple);
 
             // add all of game map to key group
             for (int row = 0; row < 3; row++)
@@ -249,6 +257,40 @@ namespace Corsair_Whack_A_Mole
                         if (Score >= 100) ScoreKeyGroup.AddKey(CorsairKeyboardKeyId.F10);
                         if (Score >= 110) ScoreKeyGroup.AddKey(CorsairKeyboardKeyId.F11);
                         if (Score >= 120) ScoreKeyGroup.AddKey(CorsairKeyboardKeyId.F12);
+
+                        int ScoreRemainder = Score % 10;
+                        Console.WriteLine("left over is {0}", ScoreRemainder);
+                        if (ScoreRemainder == 1) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad1);
+                        if (ScoreRemainder == 2) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad2);
+                        if (ScoreRemainder == 3) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad3);
+                        if (ScoreRemainder == 4) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad4);
+                        if (ScoreRemainder == 5) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad5);
+                        if (ScoreRemainder == 6) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad6);
+                        if (ScoreRemainder == 7) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad7);
+                        if (ScoreRemainder == 8) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad8);
+                        if (ScoreRemainder == 9) SingleScoreKeyGroup.AddKey(CorsairKeyboardKeyId.Keypad9);
+
+                        if(ScoreRemainder == 0)
+                        {
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad1);
+                            keyboard[CorsairKeyboardKeyId.Keypad1].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad2);
+                            keyboard[CorsairKeyboardKeyId.Keypad2].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad3);
+                            keyboard[CorsairKeyboardKeyId.Keypad3].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad4);
+                            keyboard[CorsairKeyboardKeyId.Keypad4].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad5);
+                            keyboard[CorsairKeyboardKeyId.Keypad5].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad6);
+                            keyboard[CorsairKeyboardKeyId.Keypad6].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad7);
+                            keyboard[CorsairKeyboardKeyId.Keypad7].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad8);
+                            keyboard[CorsairKeyboardKeyId.Keypad8].Led.Color = Color.Black;
+                            SingleScoreKeyGroup.RemoveKey(CorsairKeyboardKeyId.Keypad9);
+                            keyboard[CorsairKeyboardKeyId.Keypad9].Led.Color = Color.Black;
+                        }
                     }
                 }
                 if (!HitMole)
