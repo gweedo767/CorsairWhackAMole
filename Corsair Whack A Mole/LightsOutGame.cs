@@ -104,6 +104,21 @@ namespace Corsair_Whack_A_Mole
                 if (!WinScreen)
                 {
                     keyboard.Brush = new SolidColorBrush(Color.DeepSkyBlue);
+
+                    //check for win state
+                    bool TestValue = BoardState[0, 0];
+                    bool Win = true;
+                    for(int row = 0; row<4; row++)
+                    {
+                        for(int col=0; col<10; col++)
+                        {
+                            if (BoardState[row, col] != TestValue) Win = false;
+                        }
+                    }
+                    if(Win)
+                    {
+                        WinScreen = true;
+                    }
                 }
                 else
                 {
