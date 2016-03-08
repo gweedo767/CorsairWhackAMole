@@ -100,6 +100,8 @@
             this.KeyPreview = true;
             this.Name = "MainForm";
             this.Text = "Whack A Mole";
+            this.Activated += new System.EventHandler(this.formFocused);
+            this.Deactivate += new System.EventHandler(this.formDefocused);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
             this.ResumeLayout(false);

@@ -128,5 +128,24 @@ namespace Corsair_Whack_A_Mole
 
         }
 
+        private void formFocused(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void formDefocused(object sender, EventArgs e)
+        {
+            if (game.GetRunningState())
+            {
+                // display the game and set the keyboard to previous state
+                this.toggleButton.Text = "Enable";
+                CueSDK.Reinitialize();
+
+                radioLightsOut.Enabled = true;
+                radioWhackAMole.Enabled = true;
+
+                game.StopGame();
+            }
+        }
     }
 }
