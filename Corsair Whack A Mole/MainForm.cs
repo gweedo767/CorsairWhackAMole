@@ -66,9 +66,11 @@ namespace Corsair_Whack_A_Mole
 
         private void toggleButton_Click(object sender, EventArgs e)
         {
-            if (!game.GetRunningState())
+            if (game.GetRunningState() == 0)
             {
                 this.toggleButton.Text = "Disable";
+                this.pauseButton.Text = "Pause";
+                this.pauseButton.Enabled = true;
 
                 //don't let me people change games while running
                 radioLightsOut.Enabled = false;
@@ -88,6 +90,7 @@ namespace Corsair_Whack_A_Mole
             {
                 // display the game and set the keyboard to previous state
                 this.toggleButton.Text = "Enable";
+                this.pauseButton.Enabled = false;
                 CueSDK.Reinitialize();
 
                 radioLightsOut.Enabled = true;
@@ -117,7 +120,7 @@ namespace Corsair_Whack_A_Mole
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            if (game.running)
+            if (game.running == 1)
             {
                 game.GetKeyPress(e);
             }
@@ -130,13 +133,36 @@ namespace Corsair_Whack_A_Mole
 
         private void formFocused(object sender, EventArgs e)
         {
-            
+            if(game.GetRunningState() == 2)
+            {
+                Console.WriteLine("Was paused, restoring!");
+
+                CueSDK.Reinitialize();
+                keyboard.Brush = new SolidColorBrush(Color.DeepSkyBlue);
+                keyboard.Update();
+
+                this.pauseButton.Text = "Pause";
+                this.pauseButton.Enabled = true;
+                
+                GameTask = Task.Factory.StartNew(
+                () =>
+                {
+                    game.RestoreState();
+                });
+            }
         }
 
         private void formDefocused(object sender, EventArgs e)
         {
-            if (game.GetRunningState())
+            if (game.GetRunningState() == 1)
             {
+                Console.WriteLine("pausing game");
+                game.PauseGame();
+                this.pauseButton.Text = "Unpause";
+                this.pauseButton.Enabled = true;
+                CueSDK.Reinitialize();
+
+                /*
                 // display the game and set the keyboard to previous state
                 this.toggleButton.Text = "Enable";
                 CueSDK.Reinitialize();
@@ -145,7 +171,26 @@ namespace Corsair_Whack_A_Mole
                 radioWhackAMole.Enabled = true;
 
                 game.StopGame();
+                */
             }
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            if(game.GetRunningState() == 1)
+            {
+                //pause game just like form lost focus
+                formDefocused(null, null);
+                //game.PauseGame();
+                this.pauseButton.Text = "Unpause";
+            }
+            else if(game.GetRunningState() == 2)
+            {
+                //restore game just like focus restore
+                formFocused(null, null);
+                this.pauseButton.Text = "Pause";
+            }
+            
         }
     }
 }

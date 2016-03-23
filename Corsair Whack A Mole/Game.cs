@@ -12,7 +12,7 @@ namespace Corsair_Whack_A_Mole
     class Game
     {
         public CorsairKeyboard keyboard;
-        public bool running; // is the game running now?
+        public int running; // is the game running now? // 0 = no, 1 == yes, 2 == paused
 
         public virtual void StartGame()
         {
@@ -22,6 +22,11 @@ namespace Corsair_Whack_A_Mole
         public virtual void GetKeyPress(KeyEventArgs e)
         {
             Console.WriteLine("Game GetKeyPress() called");
+        }
+
+        public virtual void RestoreState()
+        {
+            Console.WriteLine("Game RestoreState() called");
         }
 
         public void SetKeyboard(CorsairKeyboard keyboard)
@@ -41,10 +46,20 @@ namespace Corsair_Whack_A_Mole
 
         public void StopGame()
         {
-            running = false;
+            running = 0; // stopped
         }
 
-        public bool GetRunningState()
+        public void PauseGame()
+        {
+            running = 2; //paused
+        }
+
+        public void UnPauseGame()
+        {
+            running = 1;
+        }
+
+        public int GetRunningState()
         {
             return running;
         }

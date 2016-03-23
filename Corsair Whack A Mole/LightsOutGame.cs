@@ -35,7 +35,7 @@ namespace Corsair_Whack_A_Mole
         public LightsOutGame()
         {
             Console.WriteLine("Game setting up (lights out)");
-            running = false;
+            running = 0;
             Random = new Random();
         }
 
@@ -68,6 +68,30 @@ namespace Corsair_Whack_A_Mole
 
         }
 
+        public override void RestoreState()
+        {
+            base.RestoreState();
+            Console.WriteLine("LightsOutGame RestoreState() called");
+
+            // add all of game map to key group
+            for (int row = 0; row < 4; row++)
+            {
+                for (int col = 0; col < 10; col++)
+                {
+                    if (BoardState[row, col])
+                    {
+                        OnMapKeyGroup.AddKey(GameMap[row, col]);
+                    }
+                    else
+                    {
+                        OffMapKeyGroup.AddKey(GameMap[row, col]);
+                    }
+                }
+            }
+            running = 1; //start the game back up
+            GameLoop();
+        }
+
         private void ToggleKey(int row, int col)
         {
             BoardState[row, col] = !BoardState[row, col];
@@ -88,7 +112,7 @@ namespace Corsair_Whack_A_Mole
             Console.WriteLine("lights out StartGame() called");
             //call base StartGame()
             base.StartGame();
-            running = true;
+            running = 1;
             Initialize();
             GameLoop();
         }
@@ -97,9 +121,8 @@ namespace Corsair_Whack_A_Mole
 
         private void GameLoop()
         {
-            while (running)
+            while (running == 1)
             {
-
                 // set default color to deep sky blue
                 if (!WinScreen)
                 {

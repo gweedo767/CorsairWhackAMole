@@ -55,8 +55,14 @@ namespace Corsair_Whack_A_Mole
         public WhackAMoleGame()
         {
             Console.WriteLine("Game setting up (whack a mole)");
-            running = false;
+            running = 0;
             Random = new Random();
+        }
+
+        public override void RestoreState()
+        {
+            base.RestoreState();
+            Console.WriteLine("WhackAMoleGame RestoreState() called");
         }
 
         public void Initialize()
@@ -108,7 +114,7 @@ namespace Corsair_Whack_A_Mole
             Console.WriteLine("whack a moles StartGame() called");
             //call base StartGame()
             base.StartGame();
-            running = true;
+            running = 1;
             Initialize();
             GameLoop();
         }
@@ -117,7 +123,7 @@ namespace Corsair_Whack_A_Mole
 
         private void GameLoop()
         {
-            while(running)
+            while(running == 1)
             {
                 
                 NextMole--;

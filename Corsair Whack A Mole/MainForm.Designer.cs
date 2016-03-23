@@ -33,6 +33,7 @@
             this.lblKeyboardType = new System.Windows.Forms.Label();
             this.radioWhackAMole = new System.Windows.Forms.RadioButton();
             this.radioLightsOut = new System.Windows.Forms.RadioButton();
+            this.pauseButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -87,11 +88,23 @@
             this.radioLightsOut.Text = "Lights Out";
             this.radioLightsOut.UseVisualStyleBackColor = true;
             // 
+            // pauseButton
+            // 
+            this.pauseButton.Enabled = false;
+            this.pauseButton.Location = new System.Drawing.Point(94, 144);
+            this.pauseButton.Name = "pauseButton";
+            this.pauseButton.Size = new System.Drawing.Size(75, 23);
+            this.pauseButton.TabIndex = 6;
+            this.pauseButton.Text = "Pause";
+            this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(214, 179);
+            this.Controls.Add(this.pauseButton);
             this.Controls.Add(this.radioLightsOut);
             this.Controls.Add(this.radioWhackAMole);
             this.Controls.Add(this.lblKeyboardType);
@@ -99,7 +112,7 @@
             this.Controls.Add(this.label1);
             this.KeyPreview = true;
             this.Name = "MainForm";
-            this.Text = "Whack A Mole";
+            this.Text = "RGB Keyboard Games";
             this.Activated += new System.EventHandler(this.formFocused);
             this.Deactivate += new System.EventHandler(this.formDefocused);
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -116,6 +129,7 @@
         private System.Windows.Forms.Label lblKeyboardType;
         private System.Windows.Forms.RadioButton radioWhackAMole;
         private System.Windows.Forms.RadioButton radioLightsOut;
+        private System.Windows.Forms.Button pauseButton;
     }
 }
 
