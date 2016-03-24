@@ -63,6 +63,26 @@ namespace Corsair_Whack_A_Mole
         {
             base.RestoreState();
             Console.WriteLine("WhackAMoleGame RestoreState() called");
+
+            //put all the keys back in to play
+            for (int row = 0; row < 3; row++)
+            {
+                for (int col = 0; col < 10; col++)
+                {
+                    GameMapKeyGroup.AddKey(GameMap[row, col]);
+                }
+            }
+
+            //restore the moles!
+            for (int i = 0; i < Moles.Count; i++)
+            {
+                Mole mole = Moles[i];
+                MolesKeyGroup.AddKey(mole.Key);
+                GameMapKeyGroup.RemoveKey(mole.Key);
+            }
+
+            running = 1; //start the game back up
+            GameLoop();
         }
 
         public void Initialize()
