@@ -34,6 +34,7 @@
             this.radioWhackAMole = new System.Windows.Forms.RadioButton();
             this.radioLightsOut = new System.Windows.Forms.RadioButton();
             this.pauseButton = new System.Windows.Forms.Button();
+            this.radioSimonSays = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label1
@@ -99,11 +100,22 @@
             this.pauseButton.UseVisualStyleBackColor = true;
             this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
             // 
+            // radioSimonSays
+            // 
+            this.radioSimonSays.AutoSize = true;
+            this.radioSimonSays.Location = new System.Drawing.Point(14, 114);
+            this.radioSimonSays.Name = "radioSimonSays";
+            this.radioSimonSays.Size = new System.Drawing.Size(77, 17);
+            this.radioSimonSays.TabIndex = 7;
+            this.radioSimonSays.Text = "SimonSays";
+            this.radioSimonSays.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(214, 179);
+            this.Controls.Add(this.radioSimonSays);
             this.Controls.Add(this.pauseButton);
             this.Controls.Add(this.radioLightsOut);
             this.Controls.Add(this.radioWhackAMole);
@@ -130,6 +142,7 @@
         private System.Windows.Forms.RadioButton radioWhackAMole;
         private System.Windows.Forms.RadioButton radioLightsOut;
         private System.Windows.Forms.Button pauseButton;
+        private System.Windows.Forms.RadioButton radioSimonSays;
     }
 }
 
