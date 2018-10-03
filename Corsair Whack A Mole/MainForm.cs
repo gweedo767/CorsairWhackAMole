@@ -75,6 +75,7 @@ namespace Corsair_Whack_A_Mole
                 //don't let me people change games while running
                 radioLightsOut.Enabled = false;
                 radioWhackAMole.Enabled = false;
+                radioSimonSays.Enabled = false;
 
                 CueSDK.Reinitialize();
                 keyboard.Brush = new SolidColorBrush(Color.DeepSkyBlue);
@@ -95,6 +96,7 @@ namespace Corsair_Whack_A_Mole
 
                 radioLightsOut.Enabled = true;
                 radioWhackAMole.Enabled = true;
+                radioSimonSays.Enabled = true;
 
                 game.StopGame();
             }
@@ -114,6 +116,11 @@ namespace Corsair_Whack_A_Mole
             else if(this.radioLightsOut.Checked)
             {
                 game = new LightsOutGame();
+                game.SetKeyboard(keyboard);
+            }
+            else if(this.radioSimonSays.Checked)
+            {
+                game = new SimonSaysGame();
                 game.SetKeyboard(keyboard);
             }
         }
